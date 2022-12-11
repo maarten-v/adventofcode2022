@@ -1,5 +1,6 @@
-w<?php
+<?php
 
+/** @var string[] $input */
 $input = file('input4.txt');
 $total = 0;
 foreach ($input as $line) {

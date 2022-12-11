@@ -1,5 +1,6 @@
 <?php
 
+/** @var string[] $input */
 $input = file('input3.txt');
 $priorities = range('a', 'z');
 $priorities = array_merge($priorities , range('A', 'Z'));

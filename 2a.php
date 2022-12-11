@@ -1,9 +1,11 @@
-w<?php
+<?php
 
 $input = file('input2.txt');
 $score = 0;
+/** @var string[] $input */
 foreach ($input as $line) {
     $line = str_replace("\n", '', trim($line));
+    /** @var string[] $play */
     $play = explode(' ', $line);
     [$opponent, $me] = $play;
     if (

@@ -1,5 +1,6 @@
 <?php
 
+/** @var string[] $input */
 $input = file('input2.txt');
 $score = 0;
 $mapping['A']['X'] = 0 + 3;

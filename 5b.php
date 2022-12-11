@@ -1,4 +1,6 @@
 <?php
+
+/** @var string[] $input */
 $input = file('input5.txt');
 $stacks = [];
 $cratesAreParsed = false;

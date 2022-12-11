@@ -1,5 +1,6 @@
 <?php
 
+/** @var string[] $input */
 $input = file('input1.txt');
 $elfCounter = 0;
 $elf = [];
