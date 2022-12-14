@@ -1,40 +1,31 @@
 <?php
+
+/** @var string[] $input */
 $input = file('input7.txt');
-$structure = [];
-/** @var string $line */
-foreach ($input as $lineNumber => $line) {
+$dirs = [];
+$totals = [];
+$dirCounter = 0;
+foreach ($input as $line) {
     $line = str_replace("\n", '', $line);
-    if ($line === '$ cd /') {
-        readFolder($lineNumber + 1, '/');
-    }
-
-}
-
-function readFolder($startLine, $folder) {
-    global $structure, $input;
-    $tweedekeer = false;
-    for ($i = $startLine; $i < count($input); $i++) {
-        if ($i === 1) {
-            if ($tweedekeer) {
-                break;
+    if ($line === '$ cd ..') {
+        array_pop($dirs);
+    } elseif (is_numeric($line[0])) {
+        preg_match("/\d+/", $line, $size);
+        foreach ($dirs as $dir) {
+            if (!isset($totals[$dir])) {
+                $totals[$dir] = 0;
             }
-            $tweedekeer = true;
+            $totals[$dir] += (int) $size[0];
         }
-        echo $i.'-';
-        $line = str_replace("\n", '', $input[$i]);
-        if ($line === '$ cd ..') {
-            echo 'x' . $i . 'x';
-            return $i;
-        }
-        if (str_starts_with($line, '$ cd ')) {
-            echo 'zit in cd';
-            $i = readFolder($i + 1, $folder[substr($line, 5)]);
-        }
-        if (is_numeric($line[0])) {
-            preg_match("/\d+/", $line, $size);
-            $structure[$folder][] = $size;
-        }
+    } elseif (str_starts_with($line, '$ cd ')) {
+        $dirs[] = $dirCounter++;
     }
 }
 
-var_dump($structure);
+$smallFoldersTotal = 0;
+foreach ($totals as $total) {
+    if ($total <= 100000) {
+        $smallFoldersTotal += $total;
+    }
+}
+echo $smallFoldersTotal;
